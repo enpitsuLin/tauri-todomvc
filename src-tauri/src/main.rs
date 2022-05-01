@@ -37,10 +37,12 @@ fn toggle_done(id: String) -> bool {
         done,
         is_delete,
     } = app.get_todo(id).unwrap();
-    app.update_todo(Todo {
+    let result = app.update_todo(Todo {
         id,
         label,
         done: !done,
         is_delete,
-    })
+    });
+    app.conn.close();
+    result
 }
