@@ -45,7 +45,25 @@ impl TodoApp {
 
         Ok(todos)
     }
-    pub fn new_todo(&self, todo: Todo) {
+
+    pub fn new_todo(&self, todo: Todo) -> bool {
+        let Todo { id, label, .. } = todo;
+        match self.conn.execute(
+            "INSERT INTO Todo (id, label, done, is_delete) VALUES (?, ?, ?, ?)",
+            [id, label],
+        ) {
+            Ok(insert) => {
+                println!("{}", insert);
+                true
+            }
+            Err(err) => {
+                println!("{}", err);
+                false
+            }
+        }
+    }
+
+    pub fn update_todo(&self, todo: Todo) {
         //TODO
     }
 }
@@ -59,6 +77,8 @@ fn main() {
 
 #[tauri::command]
 fn get_todos() -> Vec<Todo> {
-    let todo = TodoApp::new().unwrap();
-    todo.get_todos().unwrap()
+    let app = TodoApp::new().unwrap();
+    let todos = app.get_todos().unwrap();
+    app.conn.close();
+    todos
 }
