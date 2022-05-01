@@ -59,7 +59,28 @@ impl TodoApp {
         }
     }
 
-    pub fn update_todo(&self, todo: Todo) {
-        //TODO
+    pub fn update_todo(&self, todo: Todo) -> bool {
+        let Todo {
+            label,
+            done,
+            is_delete,
+            id,
+        } = todo;
+        let done = if done == true { 1 } else { 0 };
+        let is_delete = if is_delete == true { 1 } else { 0 };
+        match self.conn.execute(
+            "UPDATE Todo
+        SET label = ?1, done = ?2, is_delete = ?3 WHERE id = ?4",
+            [label, done.to_string(), is_delete.to_string(), id],
+        ) {
+            Ok(update) => {
+                println!("{}", update);
+                true
+            }
+            Err(err) => {
+                println!("{}", err);
+                false
+            }
+        }
     }
 }
