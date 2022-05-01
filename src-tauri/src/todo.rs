@@ -1,7 +1,7 @@
 use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Todo {
     pub id: String,
     pub label: String,
@@ -15,7 +15,7 @@ pub struct TodoApp {
 
 impl TodoApp {
     pub fn new() -> Result<TodoApp> {
-        let db_path = "./db.sqlite";
+        let db_path = "../db.sqlite";
         let conn = Connection::open(db_path)?;
         Ok(TodoApp { conn })
     }
@@ -37,7 +37,7 @@ impl TodoApp {
     pub fn get_todos(&self) -> Result<Vec<Todo>> {
         let mut stmt = self.conn.prepare("SELECT * FROM Todo").unwrap();
         let todos_iter = stmt.query_map([], |row| {
-            let done = row.get::<usize, i32>(3).unwrap() == 1;
+            let done = row.get::<usize, i32>(2).unwrap() == 1;
             let is_delete = row.get::<usize, i32>(3).unwrap() == 1;
 
             Ok(Todo {
@@ -74,6 +74,7 @@ impl TodoApp {
     }
 
     pub fn update_todo(&self, todo: Todo) -> bool {
+        println!("{:?}", todo);
         let Todo {
             label,
             done,
