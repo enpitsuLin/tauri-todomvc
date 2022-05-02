@@ -5,6 +5,7 @@
 This is an implementation of [tastejs/todomvc](https://github.com/tastejs/todomvc) built using :
 
 - [tauri](https://tauri.studio/)
+  - [sqlite](https://sqlite.org/index.html) for store data
 - [react](https://reactjs.org/)
 - [jotai](https://github.com/pmndrs/jotai)
 - [typescript](https://www.typescriptlang.org/)
