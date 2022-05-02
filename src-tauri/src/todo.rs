@@ -83,7 +83,6 @@ impl TodoApp {
     }
 
     pub fn update_todo(&self, todo: Todo) -> bool {
-        println!("{:?}", todo);
         let Todo {
             label,
             done,
