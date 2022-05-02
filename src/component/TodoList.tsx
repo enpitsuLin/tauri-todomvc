@@ -1,7 +1,7 @@
 import { Todo } from '../types/todo'
 import TodoItem from './TodoItem'
 
-const TodoList: React.FC<{ todos: Todo[] }> = () => {
+const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }) => {
   return (
     <>
       <header className="header">
@@ -12,7 +12,9 @@ const TodoList: React.FC<{ todos: Todo[] }> = () => {
         <input type="checkbox" className="toggle-all" />
         <label htmlFor="togle-all"></label>
         <ul className="todo-list">
-          <TodoItem />
+          {todos.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} />
+          ))}
         </ul>
       </section>
       <footer className="footer">
