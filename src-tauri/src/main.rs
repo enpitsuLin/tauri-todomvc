@@ -7,7 +7,12 @@ use todo::{Todo, TodoApp};
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![get_todos, new_todo, toggle_done])
+        .invoke_handler(tauri::generate_handler![
+            get_todos,
+            new_todo,
+            toggle_done,
+            update_todo
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -24,6 +29,14 @@ fn get_todos() -> Vec<Todo> {
 fn new_todo(todo: Todo) -> bool {
     let app = TodoApp::new().unwrap();
     let result = app.new_todo(todo);
+    app.conn.close();
+    result
+}
+
+#[tauri::command]
+fn update_todo(todo: Todo) -> bool {
+    let app = TodoApp::new().unwrap();
+    let result = app.update_todo(todo);
     app.conn.close();
     result
 }
