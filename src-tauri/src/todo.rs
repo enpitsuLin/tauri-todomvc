@@ -15,8 +15,17 @@ pub struct TodoApp {
 
 impl TodoApp {
     pub fn new() -> Result<TodoApp> {
-        let db_path = "../db.sqlite";
+        let db_path = "db.sqlite";
         let conn = Connection::open(db_path)?;
+        conn.execute(
+            "CREATE TABLE IF NOT EXISTS Todo (
+                id          varchar(64)     PRIMARY KEY,
+                label       text            NOT NULL,
+                done        numeric         DEFAULT 0,
+                is_delete   numeric         DEFAULT 0
+            )",
+            [],
+        )?;
         Ok(TodoApp { conn })
     }
 
@@ -85,7 +94,7 @@ impl TodoApp {
         let is_delete = if is_delete == true { 1 } else { 0 };
         match self.conn.execute(
             "UPDATE Todo
-        SET label = ?1, done = ?2, isDelete = ?3 WHERE id = ?4",
+        SET label = ?1, done = ?2, is_delete = ?3 WHERE id = ?4",
             [label, done.to_string(), is_delete.to_string(), id],
         ) {
             Ok(update) => {
