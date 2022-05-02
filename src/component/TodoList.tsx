@@ -1,6 +1,7 @@
+import { Todo } from '../types/todo'
 import TodoItem from './TodoItem'
 
-const TodoList = () => {
+const TodoList: React.FC<{ todos: Todo[] }> = () => {
   return (
     <>
       <header className="header">
