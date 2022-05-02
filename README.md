@@ -9,6 +9,10 @@ This is an implementation of [tastejs/todomvc](https://github.com/tastejs/todomv
 - [jotai](https://github.com/pmndrs/jotai)
 - [typescript](https://www.typescriptlang.org/)
 
+## Preview
+
+![Preview](https://user-images.githubusercontent.com/29378026/166206701-29d07147-e457-4648-a4ac-ba1ff5a08aeb.png)
+
 ## Development
 
 Requirement:
