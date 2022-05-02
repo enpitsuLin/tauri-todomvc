@@ -37,3 +37,8 @@ pnpm tauri build
 ```
 
 more detail reference [App Publishing](https://tauri.studio/docs/distribution/publishing)
+
+
+# License
+
+MIT
