@@ -5,6 +5,7 @@ specifiers:
   '@tauri-apps/cli': ^1.0.0-rc.9
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
+  '@types/uuid': ^8.3.4
   '@vitejs/plugin-react': ^1.3.0
   jotai: ^1.6.5
   react: ^18.0.0
@@ -13,6 +14,7 @@ specifiers:
   todomvc-app-css: ^2.4.2
   typescript: ^4.6.3
   use-debounce: ^8.0.0
+  uuid: ^8.3.2
   vite: ^2.9.5
 
 dependencies:
@@ -23,11 +25,13 @@ dependencies:
   react-use: 17.3.2_react-dom@18.1.0+react@18.1.0
   todomvc-app-css: 2.4.2
   use-debounce: 8.0.0_react@18.1.0
+  uuid: 8.3.2
 
 devDependencies:
   '@tauri-apps/cli': 1.0.0-rc.9
   '@types/react': 18.0.8
   '@types/react-dom': 18.0.3
+  '@types/uuid': 8.3.4
   '@vitejs/plugin-react': 1.3.1
   typescript: 4.6.4
   vite: 2.9.6
@@ -467,6 +471,10 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: true
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: true
 
   /@vitejs/plugin-react/1.3.1:
@@ -1209,6 +1217,11 @@ packages:
       react: '>=16.8.0'
     dependencies:
       react: 18.1.0
+    dev: false
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
     dev: false
 
   /vite/2.9.6:
