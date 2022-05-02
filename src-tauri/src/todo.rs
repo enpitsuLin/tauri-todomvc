@@ -63,11 +63,11 @@ impl TodoApp {
             .execute("INSERT INTO Todo (id, label) VALUES (?, ?)", [id, label])
         {
             Ok(insert) => {
-                println!("{}", insert);
+                println!("{} row inserted", insert);
                 true
             }
             Err(err) => {
-                println!("{}", err);
+                println!("some error: {}", err);
                 false
             }
         }
@@ -89,11 +89,11 @@ impl TodoApp {
             [label, done.to_string(), is_delete.to_string(), id],
         ) {
             Ok(update) => {
-                println!("{}", update);
+                println!("row {} has been update", update);
                 true
             }
             Err(err) => {
-                println!("{}", err);
+                println!("some error: {}", err);
                 false
             }
         }
