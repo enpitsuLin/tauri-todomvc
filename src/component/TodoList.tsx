@@ -34,6 +34,21 @@ const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }) => {
     },
     [newTodo]
   )
+
+  const onClearComplete = () => {
+    setTodos((oldTodos) => {
+      return oldTodos.filter((todo) => {
+        const isDone = todo.done
+        if (isDone) {
+          invoke('update_todo', {
+            todo: { ...todo, is_delete: true }
+          })
+          return false
+        }
+        return true
+      })
+    })
+  }
   return (
     <>
       <header className="header">
@@ -80,7 +95,7 @@ const TodoList: React.FC<{ todos: Todo[] }> = ({ todos }) => {
           </li>
         </ul>
         {anyDone && (
-          <button className="clear-completed" onClick={() => {}}>
+          <button className="clear-completed" onClick={onClearComplete}>
             Clear completed
           </button>
         )}
