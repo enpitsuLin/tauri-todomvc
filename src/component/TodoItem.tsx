@@ -1,4 +1,6 @@
-const TodoItem = () => {
+import { Todo } from '../types/todo'
+
+const TodoItem: React.FC<{ todo: Todo }> = () => {
   return (
     <li>
       <div className="view">
