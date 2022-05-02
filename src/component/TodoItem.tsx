@@ -5,22 +5,27 @@ import { useDebouncedCallback } from 'use-debounce'
 import { allTodosAtom } from '../store/todos'
 import { Todo } from '../types/todo'
 import { useDoubleClick } from '../hooks/useDoubleClick'
+import { invoke } from '@tauri-apps/api'
 
 const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
   const [, setTodos] = useAtom(allTodosAtom)
   const [editing, setEditing] = useState(false)
   const ref = useRef<HTMLInputElement>(null)
 
-  const toggleDone = useDebouncedCallback((done: boolean) => {
-    // TODO
+  const toggleDone = useDebouncedCallback(() => {
+    invoke('toggle_done', { id: todo.id })
   }, 1000)
 
   const setLabel = useDebouncedCallback((label: string) => {
-    // TODO
+    invoke('update_todo', {
+      todo: { ...todo, label }
+    })
   }, 1000)
 
   const deleteTodo = useCallback(() => {
-    // TODO
+    invoke('update_todo', {
+      todo: { ...todo, is_delete: true }
+    })
   }, [todo])
 
   const onDelete = () => {
@@ -61,7 +66,7 @@ const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
     setTodos((todos) => {
       return todos.map((t) => {
         if (t.id === todo.id) {
-          toggleDone(t.done)
+          toggleDone()
           return { ...t, done: !t.done }
         }
         return t
