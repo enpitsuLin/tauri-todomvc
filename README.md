@@ -22,7 +22,7 @@ install dependencies:
 pnpm i
 ```
 
-Yhen run tauri
+Then run tauri
 
 ```sh
 pnpm tauri dev
