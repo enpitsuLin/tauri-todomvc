@@ -1,8 +1,12 @@
-export function useDoubleClick(onClick: any, onDoubleClick: any) {
+import { MouseEventHandler, MouseEvent, EventHandler } from 'react'
+
+type ClickEvent = EventHandler<MouseEvent<HTMLLIElement>> | null
+
+export function useDoubleClick(onClick: ClickEvent, onDoubleClick: ClickEvent): MouseEventHandler<HTMLLIElement> {
   let clicks: number[] = []
   let timeout: number
 
-  return (event: any) => {
+  return (event) => {
     clicks.push(new Date().getTime())
 
     clearTimeout(timeout)
