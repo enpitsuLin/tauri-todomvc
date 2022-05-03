@@ -14,13 +14,13 @@ const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
 
   const toggleDone = useDebouncedCallback(() => {
     invoke('toggle_done', { id: todo.id })
-  }, 1000)
+  }, 500)
 
   const setLabel = useDebouncedCallback((label: string) => {
     invoke('update_todo', {
       todo: { ...todo, label }
     })
-  }, 1000)
+  }, 500)
 
   const deleteTodo = useCallback(() => {
     invoke('update_todo', {
