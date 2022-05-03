@@ -21,7 +21,14 @@ fn main() {
 fn get_todos() -> Vec<Todo> {
     let app = TodoApp::new().unwrap();
     let todos = app.get_todos().unwrap();
-    app.conn.close();
+    match app.conn.close() {
+        Ok(_) => {
+            println!("closed");
+        }
+        Err(e) => {
+            println!("{}", e.1);
+        }
+    };
     todos
 }
 
@@ -29,7 +36,14 @@ fn get_todos() -> Vec<Todo> {
 fn new_todo(todo: Todo) -> bool {
     let app = TodoApp::new().unwrap();
     let result = app.new_todo(todo);
-    app.conn.close();
+    match app.conn.close() {
+        Ok(_) => {
+            println!("closed");
+        }
+        Err(e) => {
+            println!("{}", e.1);
+        }
+    };
     result
 }
 
@@ -37,7 +51,14 @@ fn new_todo(todo: Todo) -> bool {
 fn update_todo(todo: Todo) -> bool {
     let app = TodoApp::new().unwrap();
     let result = app.update_todo(todo);
-    app.conn.close();
+    match app.conn.close() {
+        Ok(_) => {
+            println!("closed");
+        }
+        Err(e) => {
+            println!("{}", e.1);
+        }
+    };
     result
 }
 
@@ -56,6 +77,13 @@ fn toggle_done(id: String) -> bool {
         done: !done,
         is_delete,
     });
-    app.conn.close();
+    match app.conn.close() {
+        Ok(_) => {
+            println!("closed");
+        }
+        Err(e) => {
+            println!("{}", e.1);
+        }
+    };
     result
 }
