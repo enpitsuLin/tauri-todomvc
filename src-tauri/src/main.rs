@@ -3,10 +3,19 @@
     windows_subsystem = "windows"
 )]
 mod todo;
+use std::sync::Mutex;
 use todo::{Todo, TodoApp};
 
+struct AppState {
+    app: Mutex<TodoApp>,
+}
+
 fn main() {
+    let app = TodoApp::new().unwrap();
     tauri::Builder::default()
+        .manage(AppState {
+            app: Mutex::from(app),
+        })
         .invoke_handler(tauri::generate_handler![
             get_todos,
             new_todo,
@@ -18,53 +27,29 @@ fn main() {
 }
 
 #[tauri::command]
-fn get_todos() -> Vec<Todo> {
-    let app = TodoApp::new().unwrap();
+fn get_todos(state: tauri::State<AppState>) -> Vec<Todo> {
+    let app = state.app.lock().unwrap();
     let todos = app.get_todos().unwrap();
-    match app.conn.close() {
-        Ok(_) => {
-            println!("closed");
-        }
-        Err(e) => {
-            println!("{}", e.1);
-        }
-    };
     todos
 }
 
 #[tauri::command]
-fn new_todo(todo: Todo) -> bool {
-    let app = TodoApp::new().unwrap();
+fn new_todo(state: tauri::State<AppState>, todo: Todo) -> bool {
+    let app = state.app.lock().unwrap();
     let result = app.new_todo(todo);
-    match app.conn.close() {
-        Ok(_) => {
-            println!("closed");
-        }
-        Err(e) => {
-            println!("{}", e.1);
-        }
-    };
     result
 }
 
 #[tauri::command]
-fn update_todo(todo: Todo) -> bool {
-    let app = TodoApp::new().unwrap();
+fn update_todo(state: tauri::State<AppState>, todo: Todo) -> bool {
+    let app = state.app.lock().unwrap();
     let result = app.update_todo(todo);
-    match app.conn.close() {
-        Ok(_) => {
-            println!("closed");
-        }
-        Err(e) => {
-            println!("{}", e.1);
-        }
-    };
     result
 }
 
 #[tauri::command]
-fn toggle_done(id: String) -> bool {
-    let app = TodoApp::new().unwrap();
+fn toggle_done(state: tauri::State<AppState>, id: String) -> bool {
+    let app = state.app.lock().unwrap();
     let Todo {
         id,
         label,
@@ -77,13 +62,5 @@ fn toggle_done(id: String) -> bool {
         done: !done,
         is_delete,
     });
-    match app.conn.close() {
-        Ok(_) => {
-            println!("closed");
-        }
-        Err(e) => {
-            println!("{}", e.1);
-        }
-    };
     result
 }
