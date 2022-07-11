@@ -9,7 +9,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.0.0-rc.4",
+    "@tauri-apps/api": "^1.0.2",
     "jotai": "^1.6.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -19,7 +19,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-rc.9",
+    "@tauri-apps/cli": "^1.0.3",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/uuid": "^8.3.4",
